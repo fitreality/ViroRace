@@ -1,0 +1,170 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Components/ActorComponent.h"
+#include "BackendCommunication/BackendTypes.h"
+#include <Containers/List.h>
+#include "TrainingPlanController.generated.h"
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnTrainingIntervalFinished, int, CurrentMove, int, CurrentSet);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnTrainingIntervalStarted, int, CurrentMove, int, CurrentSet);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnWorkoutFailed);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnWorkoutSucceeded);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnTimeAverageUpdated, float, PlayerAverageWattsTime, float, PlayerAverageWattsTotal);
+
+UENUM(BlueprintType)
+enum class EPlayerAverageWattsResult : uint8
+{
+	IsInExpectedLimit UMETA(DisplayName = "User's generated power is inside allowed interval limit"),
+	WorseThanExpected UMETA(DisplayName = "User generated less watts than expected"),
+	BetterThanExpected UMETA(DisplayName = "User generated more watts than expected"),
+};
+
+UENUM(BlueprintType)
+enum class EWorkoutChange : uint8
+{
+	ScaledUp UMETA(DisplayName = "Workout scaled up"),
+	ScaledDown UMETA(DisplayName = "Workout scaled down")
+};
+
+USTRUCT(BlueprintType)
+struct FWorkoutChangeInfo
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Training plan")
+	EWorkoutChange workoutChangeType;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Training plan")
+	int set;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Training plan")
+	int move;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Training plan")
+	float timeRelativeToInterval;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Training plan")
+	float timeSinceBeginningOfWorkout;
+};
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPlayerWattsStatusCheck, EPlayerAverageWattsResult, result);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnWorkoutChanged, FWorkoutChangeInfo, changeInfo);
+
+
+
+USTRUCT()
+struct FTimeEvent
+{
+	GENERATED_BODY()
+	float TimeStamp;
+	float Btp;
+};
+
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
+class VIRORACE_API UTrainingPlanController : public UActorComponent
+{
+	GENERATED_BODY()
+
+public:
+
+	UTrainingPlanController();
+
+	UFUNCTION(BlueprintCallable, Category = "Training Plan Controller")
+		void SetTrainingPlan(FAerobicTrainingUnitResponse trainingPlan);
+	UFUNCTION(BlueprintCallable, Category = "Training Plan Controller")
+		void StartControllingTraining();
+
+	UFUNCTION(BlueprintCallable, Category = "Training Plan Controller")
+		void AddMeasurment(float btp);
+
+	UPROPERTY(BlueprintAssignable, Category = "Training Plan Controller")
+		FOnTrainingIntervalFinished OnTrainingIntervalFinished;
+
+	UPROPERTY(BlueprintAssignable, Category = "Training Plan Controller")
+		FOnTrainingIntervalStarted OnTrainingIntervalStarted;
+
+	UPROPERTY(BlueprintAssignable, Category = "Training Plan Controller")
+		FOnPlayerWattsStatusCheck OnPlayerWattsStatusCheck;
+
+	UPROPERTY(BlueprintAssignable, Category = "Training Plan Controller")
+		FOnWorkoutChanged OnWorkoutChanged;
+
+	UPROPERTY(BlueprintAssignable, Category = "Training Plan Controller")
+		FOnWorkoutFailed OnWorkoutFailed;
+
+	UPROPERTY(BlueprintAssignable, Category = "Training Plan Controller")
+		FOnWorkoutSucceeded OnWorkoutSucceeded;
+
+	UPROPERTY(BlueprintAssignable, Category = "Training Plan Controller")
+		FOnTimeAverageUpdated OnTimeAverageUpdated;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Training Plan Controller", meta = (ToolTip = "value to speed up intervals. Mainly for debug reasons"))
+		float TimeMultiplier;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Training Plan Controller", meta = (ToolTip = "how often check if player's average is in expected limit"))
+		float SecondsHowOftenCheckPlayerAverage;
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Training Plan Controller", meta = (ToolTip = "At what time, we should start checking interval correctness"))
+		float SecondsToFirstCheck;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Training Plan Controller", meta = (ToolTip = "Seconds of player result to remember"))
+		float SecondsToRemember;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Training Plan Controller", meta = (ToolTip = "percentage of expected watts in interval that is allowed to exceed"))
+		float Threshold;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "[DEBUG] Training Plan Controller")
+		bool DisplayLogs;
+
+protected:
+	virtual void BeginPlay() override;
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Training Plan Controller")
+		float averageTotal;
+	UPROPERTY(BlueprintReadOnly, Category = "Training Plan Controller")
+		float movingAverage; // of power in watts generated by player
+	UPROPERTY(BlueprintReadOnly, Category = "Training Plan Controller")
+		int currentMove;
+	UPROPERTY(BlueprintReadOnly, Category = "Training Plan Controller")
+		int currentSet;
+	UPROPERTY(BlueprintReadOnly, Category = "Training Plan Controller")
+		float currentExpectedPowerInWatts;
+	UPROPERTY(BlueprintReadOnly, Category = "Training Plan Controller")
+		EPlayerAverageWattsResult currentAverageWattsCheckStatus;
+
+private:
+
+	UFUNCTION()
+	void CheckIntervalCorrectness();
+
+	int RemoveOldSamples(float& sumOfRemovedSamples);
+	void UpdateCurrentTrainigPlanProgress();
+	bool UpdateTrainingIndices();
+	void UpdateTimerHandler();
+	void StopTrainingPlan(bool success);
+	void ResetRemainingTraining();
+
+	//-----------------TEST METHODS----------------------
+	void TestMethod(TArray<FTimeEvent> elems);
+	void AddMeasurment(FTimeEvent timeevent);
+	void PerformTests();
+	//-----------------TEST METHODS END------------------
+
+	bool CheckIndicesCorrectness();
+
+	FTimerHandle checkIntervalCorrectnessTimerHandle;
+	FAerobicTrainingUnitResponse controlledTraining;
+	ETrainingPhase trainingPhase;
+	TArray<FTimeEvent> measurments;
+
+	int currentSamples;
+	int lastMove;
+	int currentQueueSize;
+	float currentTime;
+	float timerTotalTime;
+	float totalTimeSinceBeginning;
+	float wattsPercentageChange;
+	bool isWorkoutChanged;
+
+	int timeToChangeWorkout;
+};
