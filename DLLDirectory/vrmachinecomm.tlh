@@ -1,0 +1,306 @@
+﻿// Created by Microsoft (R) C/C++ Compiler Version 14.14.26433.0 (e0ce85e3).
+//
+// c:\users\gosc\downloads\cc1\comcomponent\comcomponent\pluginclient\x64\debug\vrmachinecomm.tlh
+//
+// C++ source equivalent of type library ../VRMachineComm/bin/Debug/VRMachineComm.tlb
+// compiler-generated file created 09/25/18 at 15:03:16 - DO NOT EDIT!
+
+#pragma once
+#pragma pack(push, 8)
+
+#include <comdef.h>
+
+namespace VRMachineComm {
+
+//
+// Forward references and typedefs
+//
+
+struct __declspec(uuid("f6e4d4fa-186d-4f4f-8e0f-ce4306f0e5fb"))
+/* LIBID */ __VRMachineComm;
+struct /* coclass */ FitnessKitBluetoothClient;
+struct __declspec(uuid("4a76ed0d-f1d0-3f4c-8d33-f56a8ed74d02"))
+/* dual interface */ ILogger;
+struct /* coclass */ Logger;
+struct __declspec(uuid("7ad6bfab-3c77-49dc-baab-656a9fad61d2"))
+/* interface */ IFitnessKitBluetoothEventHandler;
+struct __declspec(uuid("b6bb96f0-d3e6-4ede-bf10-38a5ef8572e2"))
+/* interface */ IFitnessKitBluetoothClient;
+enum MachineConnectionStatus;
+struct __declspec(uuid("f9cc4ba9-d068-4b9d-a9b7-b7112c52e49e"))
+/* interface */ IWorkoutStream;
+struct /* coclass */ WorkoutStream;
+struct /* coclass */ BridgeProtocolAttribute;
+struct /* coclass */ BridgeProtocolSerializer;
+struct __declspec(uuid("4b372c38-611e-3f5e-b66c-598472112f58"))
+/* dual interface */ IBluetoothConnectionCallback;
+struct /* coclass */ BluetoothReader;
+struct /* coclass */ BluetoothWriter;
+struct /* coclass */ BluetoothDeviceConnector;
+struct __declspec(uuid("060d1708-fff0-3015-a0ed-48ba1eefd6ac"))
+/* dual interface */ _Logger;
+struct __declspec(uuid("3399abfa-fdeb-3e99-84f3-bb9bf8db83a6"))
+/* dual interface */ _BridgeProtocolAttribute;
+struct __declspec(uuid("81790344-6677-34cb-b2fe-73ceee70b978"))
+/* dual interface */ _BridgeProtocolSerializer;
+struct __declspec(uuid("b27d0bdf-95bb-33fc-a84d-5161e0791824"))
+/* dual interface */ _BluetoothReader;
+struct __declspec(uuid("98e85e61-eae9-3977-b6d7-b635debc66bc"))
+/* dual interface */ _BluetoothWriter;
+struct __declspec(uuid("6a2db016-2bb3-3a0f-a7cf-bef41f937c5d"))
+/* dual interface */ _BluetoothDeviceConnector;
+
+//
+// Smart pointer typedef declarations
+//
+
+_COM_SMARTPTR_TYPEDEF(ILogger, __uuidof(ILogger));
+_COM_SMARTPTR_TYPEDEF(IWorkoutStream, __uuidof(IWorkoutStream));
+_COM_SMARTPTR_TYPEDEF(IFitnessKitBluetoothEventHandler, __uuidof(IFitnessKitBluetoothEventHandler));
+_COM_SMARTPTR_TYPEDEF(IFitnessKitBluetoothClient, __uuidof(IFitnessKitBluetoothClient));
+_COM_SMARTPTR_TYPEDEF(IBluetoothConnectionCallback, __uuidof(IBluetoothConnectionCallback));
+_COM_SMARTPTR_TYPEDEF(_Logger, __uuidof(_Logger));
+_COM_SMARTPTR_TYPEDEF(_BridgeProtocolAttribute, __uuidof(_BridgeProtocolAttribute));
+_COM_SMARTPTR_TYPEDEF(_BridgeProtocolSerializer, __uuidof(_BridgeProtocolSerializer));
+_COM_SMARTPTR_TYPEDEF(_BluetoothReader, __uuidof(_BluetoothReader));
+_COM_SMARTPTR_TYPEDEF(_BluetoothWriter, __uuidof(_BluetoothWriter));
+_COM_SMARTPTR_TYPEDEF(_BluetoothDeviceConnector, __uuidof(_BluetoothDeviceConnector));
+
+//
+// Type library items
+//
+
+struct __declspec(uuid("8def712b-fb04-4fc7-b895-a5405f015e41"))
+FitnessKitBluetoothClient;
+    // interface _Object
+    // [ default ] interface IFitnessKitBluetoothClient
+    // interface IBluetoothConnectionCallback
+
+struct __declspec(uuid("4a76ed0d-f1d0-3f4c-8d33-f56a8ed74d02"))
+ILogger : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+      virtual HRESULT __stdcall ConsoleWriteLine (
+        /*[in]*/ BSTR message ) = 0;
+      virtual HRESULT __stdcall ConsoleWrite (
+        /*[in]*/ BSTR message,
+        /*[in]*/ SAFEARRAY * args ) = 0;
+};
+
+struct __declspec(uuid("1100d855-0c76-3bcd-b89d-39bdb2a38ba0"))
+Logger;
+    // [ default ] interface _Logger
+    // interface _Object
+    // interface ILogger
+
+enum __declspec(uuid("28637488-c6b3-44b6-8621-867441284b51"))
+MachineConnectionStatus
+{
+    MachineConnectionStatus_Connecting = 0,
+    MachineConnectionStatus_Connected = 1,
+    MachineConnectionStatus_Disconnected = 2
+};
+
+struct __declspec(uuid("f9cc4ba9-d068-4b9d-a9b7-b7112c52e49e"))
+IWorkoutStream : IUnknown
+{
+    //
+    // Raw methods provided by interface
+    //
+
+      virtual HRESULT __stdcall get_WorkoutElapseSeconds (
+        /*[out,retval]*/ double * pRetVal ) = 0;
+      virtual HRESULT __stdcall put_WorkoutElapseSeconds (
+        /*[in]*/ double pRetVal ) = 0;
+      virtual HRESULT __stdcall get_AccumulatedCalories (
+        /*[out,retval]*/ double * pRetVal ) = 0;
+      virtual HRESULT __stdcall put_AccumulatedCalories (
+        /*[in]*/ double pRetVal ) = 0;
+      virtual HRESULT __stdcall get_AccumulatedDistance (
+        /*[out,retval]*/ double * pRetVal ) = 0;
+      virtual HRESULT __stdcall put_AccumulatedDistance (
+        /*[in]*/ double pRetVal ) = 0;
+      virtual HRESULT __stdcall get_AccumulatedDistanceClimbed (
+        /*[out,retval]*/ double * pRetVal ) = 0;
+      virtual HRESULT __stdcall put_AccumulatedDistanceClimbed (
+        /*[in]*/ double pRetVal ) = 0;
+      virtual HRESULT __stdcall get_CurrentSpeed (
+        /*[out,retval]*/ double * pRetVal ) = 0;
+      virtual HRESULT __stdcall put_CurrentSpeed (
+        /*[in]*/ double pRetVal ) = 0;
+      virtual HRESULT __stdcall get_CurrentSpeedKph (
+        /*[out,retval]*/ double * pRetVal ) = 0;
+      virtual HRESULT __stdcall put_CurrentSpeedKph (
+        /*[in]*/ double pRetVal ) = 0;
+      virtual HRESULT __stdcall get_CurrentSpeedRpm (
+        /*[out,retval]*/ double * pRetVal ) = 0;
+      virtual HRESULT __stdcall put_CurrentSpeedRpm (
+        /*[in]*/ double pRetVal ) = 0;
+      virtual HRESULT __stdcall get_CurrentCadence (
+        /*[out,retval]*/ double * pRetVal ) = 0;
+      virtual HRESULT __stdcall put_CurrentCadence (
+        /*[in]*/ double pRetVal ) = 0;
+      virtual HRESULT __stdcall get_CurrentIncline (
+        /*[out,retval]*/ double * pRetVal ) = 0;
+      virtual HRESULT __stdcall put_CurrentIncline (
+        /*[in]*/ double pRetVal ) = 0;
+      virtual HRESULT __stdcall get_CurrentHeartRate (
+        /*[out,retval]*/ double * pRetVal ) = 0;
+      virtual HRESULT __stdcall put_CurrentHeartRate (
+        /*[in]*/ double pRetVal ) = 0;
+      virtual HRESULT __stdcall get_CurrentResistance (
+        /*[out,retval]*/ double * pRetVal ) = 0;
+      virtual HRESULT __stdcall put_CurrentResistance (
+        /*[in]*/ double pRetVal ) = 0;
+      virtual HRESULT __stdcall get_CurrentLevel (
+        /*[out,retval]*/ double * pRetVal ) = 0;
+      virtual HRESULT __stdcall put_CurrentLevel (
+        /*[in]*/ double pRetVal ) = 0;
+};
+
+struct __declspec(uuid("7ad6bfab-3c77-49dc-baab-656a9fad61d2"))
+IFitnessKitBluetoothEventHandler : IUnknown
+{
+    //
+    // Raw methods provided by interface
+    //
+
+      virtual HRESULT __stdcall OnWorkoutStreamReceived (
+        /*[in]*/ struct IWorkoutStream * workoutData ) = 0;
+      virtual HRESULT __stdcall OnConnectionWithMachineStatusChanged (
+        /*[in]*/ enum MachineConnectionStatus status ) = 0;
+};
+
+struct __declspec(uuid("b6bb96f0-d3e6-4ede-bf10-38a5ef8572e2"))
+IFitnessKitBluetoothClient : IUnknown
+{
+    //
+    // Raw methods provided by interface
+    //
+
+      virtual HRESULT __stdcall Connect (
+        /*[in]*/ BSTR bluetoothMac ) = 0;
+      virtual HRESULT __stdcall AddReadEventHandlers (
+        /*[in]*/ struct IFitnessKitBluetoothEventHandler * bluetoothConnectorEventHandler ) = 0;
+      virtual HRESULT __stdcall TryReadingMessage (
+        /*[out,retval]*/ VARIANT_BOOL * pRetVal ) = 0;
+};
+
+struct __declspec(uuid("785b825a-431b-45a1-97df-bb95a863b181"))
+WorkoutStream;
+    // interface _Object
+    // [ default ] interface IWorkoutStream
+
+struct __declspec(uuid("df189d74-a938-3550-b0ec-6d1231f05b9a"))
+BridgeProtocolAttribute;
+    // [ default ] interface _BridgeProtocolAttribute
+    // interface _Object
+    // interface _Attribute
+
+struct __declspec(uuid("9c9ea6b0-a7ad-3de6-9f38-4fede0a1c258"))
+BridgeProtocolSerializer;
+    // [ default ] interface _BridgeProtocolSerializer
+    // interface _Object
+
+struct __declspec(uuid("4b372c38-611e-3f5e-b66c-598472112f58"))
+IBluetoothConnectionCallback : IDispatch
+{
+    //
+    // Raw methods provided by interface
+    //
+
+      virtual HRESULT __stdcall IsConnected (
+        /*[out,retval]*/ VARIANT_BOOL * pRetVal ) = 0;
+      virtual HRESULT __stdcall OnDisconnect ( ) = 0;
+};
+
+struct __declspec(uuid("248b0734-d91c-318e-a843-318ea1fba6d0"))
+BluetoothReader;
+    // [ default ] interface _BluetoothReader
+    // interface _Object
+
+struct __declspec(uuid("9bf89fe5-9757-3932-b1d4-e54f254144ca"))
+BluetoothWriter;
+    // [ default ] interface _BluetoothWriter
+    // interface _Object
+
+struct __declspec(uuid("8809aad7-f060-3c5f-a2d4-087f6ef54c95"))
+BluetoothDeviceConnector;
+    // [ default ] interface _BluetoothDeviceConnector
+    // interface _Object
+
+struct __declspec(uuid("060d1708-fff0-3015-a0ed-48ba1eefd6ac"))
+_Logger : IDispatch
+{};
+
+struct __declspec(uuid("3399abfa-fdeb-3e99-84f3-bb9bf8db83a6"))
+_BridgeProtocolAttribute : IDispatch
+{};
+
+struct __declspec(uuid("81790344-6677-34cb-b2fe-73ceee70b978"))
+_BridgeProtocolSerializer : IDispatch
+{};
+
+struct __declspec(uuid("b27d0bdf-95bb-33fc-a84d-5161e0791824"))
+_BluetoothReader : IDispatch
+{};
+
+struct __declspec(uuid("98e85e61-eae9-3977-b6d7-b635debc66bc"))
+_BluetoothWriter : IDispatch
+{};
+
+struct __declspec(uuid("6a2db016-2bb3-3a0f-a7cf-bef41f937c5d"))
+_BluetoothDeviceConnector : IDispatch
+{};
+
+//
+// Named GUID constants initializations
+//
+
+extern "C" const GUID __declspec(selectany) LIBID_VRMachineComm =
+    {0xf6e4d4fa,0x186d,0x4f4f,{0x8e,0x0f,0xce,0x43,0x06,0xf0,0xe5,0xfb}};
+extern "C" const GUID __declspec(selectany) CLSID_FitnessKitBluetoothClient =
+    {0x8def712b,0xfb04,0x4fc7,{0xb8,0x95,0xa5,0x40,0x5f,0x01,0x5e,0x41}};
+extern "C" const GUID __declspec(selectany) IID_ILogger =
+    {0x4a76ed0d,0xf1d0,0x3f4c,{0x8d,0x33,0xf5,0x6a,0x8e,0xd7,0x4d,0x02}};
+extern "C" const GUID __declspec(selectany) CLSID_Logger =
+    {0x1100d855,0x0c76,0x3bcd,{0xb8,0x9d,0x39,0xbd,0xb2,0xa3,0x8b,0xa0}};
+extern "C" const GUID __declspec(selectany) IID_IWorkoutStream =
+    {0xf9cc4ba9,0xd068,0x4b9d,{0xa9,0xb7,0xb7,0x11,0x2c,0x52,0xe4,0x9e}};
+extern "C" const GUID __declspec(selectany) IID_IFitnessKitBluetoothEventHandler =
+    {0x7ad6bfab,0x3c77,0x49dc,{0xba,0xab,0x65,0x6a,0x9f,0xad,0x61,0xd2}};
+extern "C" const GUID __declspec(selectany) IID_IFitnessKitBluetoothClient =
+    {0xb6bb96f0,0xd3e6,0x4ede,{0xbf,0x10,0x38,0xa5,0xef,0x85,0x72,0xe2}};
+extern "C" const GUID __declspec(selectany) CLSID_WorkoutStream =
+    {0x785b825a,0x431b,0x45a1,{0x97,0xdf,0xbb,0x95,0xa8,0x63,0xb1,0x81}};
+extern "C" const GUID __declspec(selectany) CLSID_BridgeProtocolAttribute =
+    {0xdf189d74,0xa938,0x3550,{0xb0,0xec,0x6d,0x12,0x31,0xf0,0x5b,0x9a}};
+extern "C" const GUID __declspec(selectany) CLSID_BridgeProtocolSerializer =
+    {0x9c9ea6b0,0xa7ad,0x3de6,{0x9f,0x38,0x4f,0xed,0xe0,0xa1,0xc2,0x58}};
+extern "C" const GUID __declspec(selectany) IID_IBluetoothConnectionCallback =
+    {0x4b372c38,0x611e,0x3f5e,{0xb6,0x6c,0x59,0x84,0x72,0x11,0x2f,0x58}};
+extern "C" const GUID __declspec(selectany) CLSID_BluetoothReader =
+    {0x248b0734,0xd91c,0x318e,{0xa8,0x43,0x31,0x8e,0xa1,0xfb,0xa6,0xd0}};
+extern "C" const GUID __declspec(selectany) CLSID_BluetoothWriter =
+    {0x9bf89fe5,0x9757,0x3932,{0xb1,0xd4,0xe5,0x4f,0x25,0x41,0x44,0xca}};
+extern "C" const GUID __declspec(selectany) CLSID_BluetoothDeviceConnector =
+    {0x8809aad7,0xf060,0x3c5f,{0xa2,0xd4,0x08,0x7f,0x6e,0xf5,0x4c,0x95}};
+extern "C" const GUID __declspec(selectany) IID__Logger =
+    {0x060d1708,0xfff0,0x3015,{0xa0,0xed,0x48,0xba,0x1e,0xef,0xd6,0xac}};
+extern "C" const GUID __declspec(selectany) IID__BridgeProtocolAttribute =
+    {0x3399abfa,0xfdeb,0x3e99,{0x84,0xf3,0xbb,0x9b,0xf8,0xdb,0x83,0xa6}};
+extern "C" const GUID __declspec(selectany) IID__BridgeProtocolSerializer =
+    {0x81790344,0x6677,0x34cb,{0xb2,0xfe,0x73,0xce,0xee,0x70,0xb9,0x78}};
+extern "C" const GUID __declspec(selectany) IID__BluetoothReader =
+    {0xb27d0bdf,0x95bb,0x33fc,{0xa8,0x4d,0x51,0x61,0xe0,0x79,0x18,0x24}};
+extern "C" const GUID __declspec(selectany) IID__BluetoothWriter =
+    {0x98e85e61,0xeae9,0x3977,{0xb6,0xd7,0xb6,0x35,0xde,0xbc,0x66,0xbc}};
+extern "C" const GUID __declspec(selectany) IID__BluetoothDeviceConnector =
+    {0x6a2db016,0x2bb3,0x3a0f,{0xa7,0xcf,0xbe,0xf4,0x1f,0x93,0x7c,0x5d}};
+
+} // namespace VRMachineComm
+
+#pragma pack(pop)
